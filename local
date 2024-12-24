@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solicitação de Localização</title>
+</head>
+<body>
+    <script>
+       function obterLocalizacao() {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(mostrarLocalizacao, erroLocalizacao);
+  } else {
+    alert("Seu navegador não suporta geolocalização.");
+  }
+}
+
+function mostrarLocalizacao(posicao) {
+  const latitude = posicao.coords.latitude;
+  const longitude = posicao.coords.longitude;
+
+  // Aqui você pode escolher como apresentar a localização:
+  // 1. Em um alerta:
+  alert("Sua localização é: Latitude " + latitude + ", Longitude " + longitude);
+
+  // 2. Em um elemento HTML:
+  const resultado = document.getElementById("resultado");
+  resultado.textContent = "Sua localização é: Latitude " + latitude + ", Longitude " + longitude;
+
+  // 3. Em um mapa (usando uma biblioteca como o Google Maps API):
+  // ... (código para integrar o Google Maps API e mostrar a localização)
+}
+
+function erroLocalizacao(erro) {
+  switch(erro.code) {
+    case erro.PERMISSION_DENIED:
+      alert("Usuário negou a solicitação de geolocalização.");
+      break;
+    case erro.POSITION_UNAVAILABLE:
+      alert("Localização indisponível.");
+      break;
+    case erro.TIMEOUT:
+      alert("A solicitação expirou.");
+      break;
+    case erro.UNKNOWN_ERROR:
+      alert("Um erro desconhecido ocorreu.");
+      break;
+  }
+}
+
+// Chamar a função para iniciar a solicitação de localização:
+obterLocalizacao();
+    </script>
+</body>
+</html>
